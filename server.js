@@ -43,9 +43,9 @@ app.post('/', function(req, res){
 	var body = '';
 
 	// gather body data
-  req.on('data', function(chunk) {
-    body += chunk.toString();
-  });
+	req.on('data', function(chunk) {
+		body += chunk.toString();
+	});
 
 	// once the body data is gathered run it through hint
 	req.on('end', function(){
