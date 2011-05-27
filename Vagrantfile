@@ -13,5 +13,6 @@ Vagrant::Config.run do |config|
   config.vm.provision :chef_solo do |chef|
     chef.cookbooks_path = ["cookbooks"]
     chef.add_recipe "jshint-service"
+    chef.json.merge!(:deploy => { :dir => "/vagrant", :user => "vagrant"})
   end
 end
