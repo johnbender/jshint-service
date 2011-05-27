@@ -37,12 +37,12 @@ jshint_uri=http://33.33.33.10:3000/
 for file in $(git diff --cached --name-only --diff-filter=ACM | grep "\.js$"); do
   contents=$(cat "$file")
 
-	# push the current file's contents to the jshint service
+  # push the current file's contents to the jshint service
   hints=$(curl -s -f -m 2 -H "Content-Type: text/javascript" -X POST -d "$contents" "$jshint_uri")
   on_error "couldn't connect to $jshint_uri"
 
-	# if there's at least one line of output from the curl reponse
-	# dump it to stdout for review
+  # if there's at least one line of output from the curl reponse
+  # dump it to stdout for review
   counts=$(echo -e "$hints" | grep "[^\s]" | wc -l)
   if [[  "$counts" -gt 0 ]]; then
     echo
