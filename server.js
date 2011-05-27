@@ -5,11 +5,11 @@ var express = require("express"),
 		jshint = require("jshint/jshint"),
 		config = {
 			"predef": [
-        "jasmine",
-        "spyOn",
-        "it",
-        "describe",
-        "expect"
+				"jasmine",
+				"spyOn",
+				"it",
+				"describe",
+				"expect"
 			],
 
 			"node" : true,
@@ -36,7 +36,7 @@ var express = require("express"),
 			"undef": true,
 			"sub": true,
 			"strict": false,
-			"white": true
+			"white": false
 		};
 
 app.post('/', function(req, res){
@@ -53,7 +53,7 @@ app.post('/', function(req, res){
 		jshint.JSHINT(body, config);
 		jshint.JSHINT.errors.forEach(function(error){
 			console.log(error);
-			result += "line " + error.line + " : " + error['reason'] + " \n";
+			result += "line " + error.line + ": " + error['reason'] + " \n";
 		});
 
 		res.send(result);
