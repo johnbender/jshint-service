@@ -5,11 +5,7 @@ var express = require("express"),
 		jshint = require("jshint/jshint"),
 		config = {
 			"predef": [
-				"jasmine",
-				"spyOn",
-				"it",
-				"describe",
-				"expect"
+				"jQuery"
 			],
 
 			"node" : true,
@@ -38,6 +34,7 @@ var express = require("express"),
 			"strict": false,
 			"white": false
 		};
+
 
 app.post('/', function(req, res){
 	var body = '';
