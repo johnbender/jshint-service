@@ -36,6 +36,10 @@ var express = require("express"),
 		};
 
 
+app.get('/', function(req, res){
+	res.send("<h1 style='text-align: center; font-size: 120px;'>ZOMG JSHINT</h1>");
+});
+
 app.post('/', function(req, res){
 	var body = '';
 
