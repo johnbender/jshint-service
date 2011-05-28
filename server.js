@@ -37,9 +37,9 @@ var express = require("express"),
 		};
 
 app.configure(function () {
-    app.use(require('connect-form')({keepExtensions: true}));
-    app.use(express.errorHandler({ dumpExceptions: true, showStack: true }));
-    app.use(express.bodyParser());
+	app.use(require('connect-form')({keepExtensions: true}));
+	app.use(express.errorHandler({ dumpExceptions: true, showStack: true }));
+	app.use(express.bodyParser());
 });
 
 app.get('/', function(req, res){
@@ -47,30 +47,36 @@ app.get('/', function(req, res){
 });
 
 app.post('/', function (req, res) {
-    if (! req.form) {
-        throw new TypeError("form data required");
-    }
-    return req.form.complete(function (err, fields, files) {
-		var result = "";
-		var globals = {};
-		
+	if (! req.form) {
+		throw new TypeError("form data required");
+	}
+
+	return req.form.complete(function (err, fields, files) {
+		var result = "",
+				globals = {},
+				passed = false,
+				jsonDefault = function(field, defaultVal){
+					return (field) ? JSON.parse(field) : defaultVal;
+				};
+
 		try {
-			config = (fields.config)?JSON.parse(fields.config):config;
-			globals = (fields.globals)?JSON.parse(fields.globals):globals;
+			config = jsonDefault(fields.config, config);
+			globals = jsonDefault(fields.globals, globals);
 		} catch (e) {
+			// TODO report error to client
 			console.error("Error while parsing options string, it should be valid JSON:",e);
 		}
-		var passed = false;
+
 		jshint.JSHINT(fields.source, config, globals);
 		jshint.JSHINT.errors.forEach(function(error){
 			if (error) {
-				console.log(error);			
+				console.log(error);
 				result += "line " + error.line + ": " + error.reason + " \n";
 			}
 		});
 
 		res.send(result, {'Content-Type': 'text/plain'});
-    });
+	});
 });
 
 app.listen(3000);
