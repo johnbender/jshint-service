@@ -35,30 +35,38 @@ var express = require("express"),
 			"white": false
 		};
 
+app.configure(function () {
+    app.use(require('connect-form')({keepExtensions: true}));
+    app.use(express.errorHandler({ dumpExceptions: true, showStack: true }));
+    app.use(express.bodyParser());
+});
 
 app.get('/', function(req, res){
 	res.send("<h1 style='text-align: center; font-size: 120px;'>ZOMG JSHINT</h1>");
 });
 
-app.post('/', function(req, res){
-	var body = '';
-
-	// gather body data
-	req.on('data', function(chunk) {
-		body += chunk.toString();
-	});
-
-	// once the body data is gathered run it through hint
-	req.on('end', function(){
+app.post('/', function (req, res) {
+    if (! req.form) {
+        throw new TypeError("form data required");
+    }
+    return req.form.complete(function (err, fields, files) {
 		var result = "";
-		jshint.JSHINT(body, config);
+		
+		try {
+			config = (fields.opts)?JSON.parse(fields.opts):config;
+		} catch (e) {
+			console.error("Error while parsing options string, it should be valid JSON:",e);
+		}
+		var passed = false;
+
+		jshint.JSHINT(fields.source, config);
 		jshint.JSHINT.errors.forEach(function(error){
 			console.log(error);
 			result += "line " + error.line + ": " + error.reason + " \n";
 		});
 
-		res.send(result);
-	});
+		res.send(result, {'Content-Type': 'text/plain'});
+    });
 });
 
 app.listen(3000);
