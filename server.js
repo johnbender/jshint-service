@@ -54,7 +54,7 @@ app.post('/', function(req, res){
 		jshint.JSHINT(body, config);
 		jshint.JSHINT.errors.forEach(function(error){
 			console.log(error);
-			result += "line " + error.line + ": " + error['reason'] + " \n";
+			result += "line " + error.line + ": " + error.reason + " \n";
 		});
 
 		res.send(result);
