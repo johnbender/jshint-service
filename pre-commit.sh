@@ -30,7 +30,7 @@ which curl > /dev/null
 on_error "curl is required to contact jshint service, please install"
 
 #TODO point at actual service
-jshint_uri=http://li219-110.members.linode.com:3000
+jshint_uri=change-to-match-your-deployed-server
 
 # git command aped from https://github.com/jish/pre-commit/blob/master/lib/pre-commit/utils.rb
 # grabs all the names of the files staged in the index
