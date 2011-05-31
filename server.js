@@ -51,18 +51,20 @@ app.post('/', function (req, res) {
     }
     return req.form.complete(function (err, fields, files) {
 		var result = "";
+		var globals = {};
 		
 		try {
-			config = (fields.opts)?JSON.parse(fields.opts):config;
+			config = (fields.config)?JSON.parse(fields.config):config;
+			globals = (fields.globals)?JSON.parse(fields.globals):globals;
 		} catch (e) {
 			console.error("Error while parsing options string, it should be valid JSON:",e);
 		}
 		var passed = false;
 
-		jshint.JSHINT(fields.source, config);
+		jshint.JSHINT(fields.source, config, globals);
 		jshint.JSHINT.errors.forEach(function(error){
-			//console.log(error);
-			result += "line " + error.line + ": " + error['reason'] + " \n";
+			console.log(error);
+			result += "line " + error.line + ": " + error.reason + " \n";
 		});
 
 		res.send(result, {'Content-Type': 'text/plain'});

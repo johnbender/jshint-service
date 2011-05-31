@@ -11,7 +11,7 @@ function on_error {
 
 # Prevent console.log() or alert statements from being committed.
 # adapted from jlindley's console check https://gist.github.com/673376
-grep_bad=$(grep -inR "console\.\|alert(\|debugger" js/*.js)
+grep_bad=$(grep -inR "console\.\|alert(\|debugger" `find . -name "*.js"`)
 count=$(echo -e "$grep_bad" | grep "[^\s]" | wc -l | awk '{print $1}')
 
 if [[ "$count" -ge 1 ]]; then
@@ -30,7 +30,7 @@ which curl > /dev/null
 on_error "curl is required to contact jshint service, please install"
 
 #TODO point at actual service
-jshint_uri=http://li219-110.members.linode.com:3000
+jshint_uri=change-to-match-your-deployed-server
 
 # git command aped from https://github.com/jish/pre-commit/blob/master/lib/pre-commit/utils.rb
 # grabs all the names of the files staged in the index
@@ -38,7 +38,7 @@ for file in $(git diff --cached --name-only --diff-filter=ACM | grep "\.js$"); d
   contents=$(cat "$file")
 
   # push the current file's contents to the jshint service
-  hints=$(curl -s -f -m 2 -H "Content-Type: text/javascript" -X POST -d "$contents" "$jshint_uri")
+  hints=$(curl -s -f -m 2 --form source="$contents" "$jshint_uri")
   on_error "couldn't connect to $jshint_uri"
 
   # if there's at least one line of output from the curl reponse
