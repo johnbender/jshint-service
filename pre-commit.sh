@@ -38,7 +38,7 @@ for file in $(git diff --cached --name-only --diff-filter=ACM | grep "\.js$"); d
   contents=$(cat "$file")
 
   # push the current file's contents to the jshint service
-  hints=$(curl -s -f -m 2 -H "Content-Type: text/javascript" -X POST -d "$contents" "$jshint_uri")
+  hints=$(curl -s -f -m 2 --form source="$contents" "$jshint_uri")
   on_error "couldn't connect to $jshint_uri"
 
   # if there's at least one line of output from the curl reponse
