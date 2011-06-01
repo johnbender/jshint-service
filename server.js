@@ -1,4 +1,5 @@
-require.paths.unshift(".");
+require.paths.unshift("/usr/local/jshint-service");
+require.paths.unshift("/usr/lib/node_modules");
 
 var express = require("express"),
 		app = express.createServer(),
@@ -60,11 +61,12 @@ app.post('/', function (req, res) {
 			console.error("Error while parsing options string, it should be valid JSON:",e);
 		}
 		var passed = false;
-
 		jshint.JSHINT(fields.source, config, globals);
 		jshint.JSHINT.errors.forEach(function(error){
-			console.log(error);
-			result += "line " + error.line + ": " + error.reason + " \n";
+			if (error) {
+				console.log(error);			
+				result += "line " + error.line + ": " + error.reason + " \n";
+			}
 		});
 
 		res.send(result, {'Content-Type': 'text/plain'});
