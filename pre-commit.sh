@@ -11,7 +11,7 @@ function on_error {
 }
 
 # check connection
-ping -c 1 -w 1 google.com > /dev/null
+ping -c 1 -w 1 google.com > /dev/null || ping -c 1 -t 1 google.com > /dev/null
 on_error "internet connection appears to be down, skipping jshint"
 
 # check for curl
