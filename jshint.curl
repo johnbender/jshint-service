@@ -1,0 +1,7 @@
+source=$1
+config=$2
+globals=$3
+jshint_uri=http://localhost:3000
+
+# push the current file's contents to the jshint service
+curl -f -m 2 --form source="$source" --form config="$config" --form globals="$globals" "$jshint_uri"
