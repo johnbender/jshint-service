@@ -21,6 +21,11 @@ on_error "curl is required to contact jshint service, please install"
 #TODO point at actual service
 jshint_uri=change-to-match-your-deployed-server
 options_file=change-to-match-your-options-file
+globals_file=change-to-match-your-globals-file
+
+cmd_base="curl -s -f -m 2"
+if [ -n "$options_file" -a -r $options_file ]; then cmd_base="$cmd_base --form config=<$options_file"; fi
+if [ -n "$globals_file" -a -r $globals_file ]; then cmd_base="$cmd_base --form globals=<$globals_file"; fi
 
 # git command aped from https://github.com/jish/pre-commit/blob/master/lib/pre-commit/utils.rb
 # grabs all the names of the files staged in the index
@@ -39,7 +44,7 @@ for file in $(git diff --cached --name-only --diff-filter=ACM | grep "\.js$"); d
 	fi
 
 	# push the current file's contents to the jshint service
-	hints=$(curl -s -f -m 2 --form "source=<$file" --form "config=<$options_file" "$jshint_uri")
+	hints=$($cmd_base --form "source=<$file" "$jshint_uri")
 	on_error "couldn't connect to $jshint_uri"
 
 	# if there's at least one line of output from the curl reponse
