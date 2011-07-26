@@ -23,9 +23,9 @@ Included is a relatively simple pre-commit git hook that prevents commits on `co
 
 There are three ways to configure the hook: the service uri, the config options file, and the globals file.
 
-The service uri should be self explanatory but I've deployed a version of the service to heroku at http://jshint-service.herokuapp.com/ if you don't want to host one yourslef. *Please use responsibly*
+The service uri is set as `jshint_uri` and should be self explanatory but I've deployed a version of the service to heroku at http://jshint-service.herokuapp.com/ if you don't want to host one yourslef. *Please use responsibly*
 
-The config options file should be valid json with the defaults as follows:
+The config options file is set as `options_file` and should be valid json with the defaults as follows:
 
 ```javascript
 
@@ -59,6 +59,6 @@ The config options file should be valid json with the defaults as follows:
 
 ```
 
-The globals represent pre-defined global options that JSHINT should ignore when linting your javascript (ie jQuery).
+The globals represent pre-defined global options that JSHINT should ignore when linting your javascript (ie jQuery). You can set it in the hook with `globals_file`.
 
 Enjoy!
