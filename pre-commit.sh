@@ -18,7 +18,8 @@ on_error "internet connection appears to be down, skipping jshint"
 which curl > /dev/null
 on_error "curl is required to contact jshint service, please install"
 
-#TODO point at actual service
+# NOTE You may use http://jshint-service.herokuapp.com/ if you will do so responsibly
+# jshint_uri=http://jshint-service.herokuapp.com/
 jshint_uri=change-to-match-your-deployed-server
 options_file=change-to-match-your-options-file
 globals_file=change-to-match-your-globals-file
