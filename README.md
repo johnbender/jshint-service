@@ -1,6 +1,6 @@
 # JSHINT Service
 
-A super simple node server for accepting js as a POST body and running it through [jshint](http://jshint.com).
+A super simple node server for accepting js as a POST and running it through [jshint](http://jshint.com).
 
 ## Motivation
 
@@ -29,33 +29,32 @@ The config options file is set as `options_file` and should be valid json with t
 
 ```javascript
 
-		config = {
-			"node" : true,
-			"es5" : true,
-			"browser" : true,
-
-			"boss" : false,
-			"curly": false,
-			"debug": false,
-			"devel": false,
-			"eqeqeq": true,
-			"evil": false,
-			"forin": false,
-			"immed": true,
-			"laxbreak": false,
-			"newcap": true,
-			"noarg": true,
-			"noempty": false,
-			"nonew": false,
-			"nomen": false,
-			"onevar": true,
-			"plusplus": false,
-			"regexp": false,
-			"undef": true,
-			"sub": true,
-			"strict": false,
-			"white": false
-		};
+config = {
+	"node" : true,
+	"es5" : true,
+	"browser" : true,
+	"boss" : false,
+	"curly": false,
+	"debug": false,
+	"devel": false,
+	"eqeqeq": true,
+	"evil": false,
+	"forin": false,
+	"immed": true,
+	"laxbreak": false,
+	"newcap": true,
+	"noarg": true,
+	"noempty": false,
+	"nonew": false,
+	"nomen": false,
+	"onevar": true,
+	"plusplus": false,
+	"regexp": false,
+	"undef": true,
+	"sub": true,
+	"strict": false,
+	"white": false
+};
 
 ```
 
