@@ -29,7 +29,7 @@ The config options file is set as `options_file` and should be valid json with t
 
 ```javascript
 
-config = {
+{
 	"node" : true,
 	"es5" : true,
 	"browser" : true,
@@ -54,7 +54,7 @@ config = {
 	"sub": true,
 	"strict": false,
 	"white": false
-};
+}
 
 ```
 
