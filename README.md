@@ -60,4 +60,8 @@ The config options file is set as `options_file` and should be valid json with t
 
 The globals represent pre-defined global options that JSHINT should ignore when linting your javascript (ie jQuery). You can set it in the hook with `globals_file`.
 
+## Further Reading
+
+For more information on configuration and options please see the [jshint documentation](http://jshint.com/#docs).
+
 Enjoy!
