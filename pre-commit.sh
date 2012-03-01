@@ -19,7 +19,6 @@ which curl > /dev/null
 on_error "curl is required to contact jshint service, please install"
 
 # NOTE You may use either of the following if you will do so responsibly
-# jshint_uri=http://jshint-service.herokuapp.com/
 # jshint_uri=http://ghislain.no.de/jshint
 jshint_uri=change-to-match-your-deployed-server
 options_file=change-to-match-your-options-file
